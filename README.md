@@ -1,88 +1,46 @@
-# Agentic Software Development Framework
+# Dog Viewer
 
-A drop-in framework for structured, verifiable AI-assisted software development.
+A React coding assignment for building a small dog-browsing experience powered by the Dog API.
 
-## What This Is
+## Assignment Summary
 
-A set of agent definitions, instruction files, and artifact templates that enforce a pipeline-based development workflow. Instead of unstructured "vibe coding," every unit of work flows through defined phases with concrete artifacts at each handoff.
+This repository is intended for a timeboxed Dog Viewer exercise. The app should let reviewers browse random dog images by breed, switch the main image from a thumbnail gallery, and save favorite dogs for quick recall. The assignment is designed to be small enough for an initial interview round while leaving room for follow-up enhancements later.
 
-## The Pipeline
+## Target Experience
 
-```
-spec → research → plan → execution → verification
-```
+### Part 1: General display
 
-| Phase | Input | Output | Agent |
-|-------|-------|--------|-------|
-| Spec | Human request | Spec artifact | `@specifier` |
-| Research | Spec | Research brief | `@researcher` |
-| Plan | Spec + research brief | Plan artifact | `@planner` |
-| Execution | Plan + spec + research | Code changes | `@executor` |
-| Verification | Spec + code changes | Run ledger entry | `@verifier` |
+- Show one random dog image as the main image at the top of the app.
+- Label the main image with its breed.
+- Show 10 random dog thumbnails below the main image, each with its breed.
+- When a user clicks a thumbnail, promote that dog to the main image area.
+- When a user hovers over a thumbnail, it should scale up smoothly.
 
-## Quick Start
+### Part 2: Favorites
 
-1. Copy this folder's contents into your project root.
-2. Start working with your AI tool (Copilot, Claude, etc.) — the instruction files are picked up automatically.
-3. For structured work, invoke agents by role: `@specifier`, `@researcher`, `@planner`, `@executor`, `@verifier`.
-4. For simpler tasks, the repo-wide instructions in `.github/copilot-instructions.md` and `CLAUDE.md` guide the AI to follow the pipeline.
+- Add a favorites panel on the right side of the app.
+- Provide a button for adding the current main dog to favorites.
+- When a user clicks a favorite, show that dog as the main image.
+- Include a remove button for each favorite entry.
 
-## Folder Structure
+## Stack and Data Source
 
-```
-.github/
-  copilot-instructions.md        # Repo-wide Copilot instructions
-  agents/
-    specifier.md                  # Copilot custom agent: spec writer
-    researcher.md                 # Copilot custom agent: codebase investigator
-    planner.md                    # Copilot custom agent: plan generator
-    executor.md                   # Copilot custom agent: step-by-step implementer
-    verifier.md                   # Copilot custom agent: checker + ledger writer
-  instructions/
-    (add path-specific instructions here as needed)
-.claude/
-  rules/
-    artifacts.md                  # Claude rules for artifact files
-    execution.md                  # Claude rules for source code changes
-CLAUDE.md                         # Claude Code project instructions
-templates/
-  spec.md                         # Spec artifact template
-  research-brief.md               # Research brief template
-  plan.md                         # Plan artifact template
-  run-ledger-entry.md             # Run ledger entry template
-docs/
-  run-ledger.md                   # Append-only audit trail (create on first run)
-FRAMEWORK.md                      # Full framework documentation
-```
+- **UI framework:** React
+- **API:** [Dog API](https://dog.ceo/dog-api/documentation)
+- **Primary goal:** keep the app easy for reviewers to run and easy to extend in later interview rounds
 
-## Tool Compatibility
+## Repository Status
 
-| Tool | Instruction File | Agent Files |
-|------|-----------------|-------------|
-| GitHub Copilot | `.github/copilot-instructions.md` | `.github/agents/*.md` |
-| Claude Code | `CLAUDE.md` + `.claude/rules/*.md` | Use CLAUDE.md pipeline guidance |
-| Other AI tools | Read `FRAMEWORK.md` for the methodology | Adapt agent prompts as needed |
+This repository currently contains project documentation and workflow scaffolding. The React application implementation has not been added yet, so this README describes the intended product and assignment scope without claiming completed app behavior or setup commands that do not yet exist.
 
-## Templates
+## Framework Context
 
-Use the templates in `templates/` for every pipeline artifact. They enforce consistent structure so artifacts are readable by both humans and AI agents.
+This project was forked from a template repository that includes the Agentic Software Development Framework. That framework is still present here as supporting project infrastructure and includes:
 
-## Run Ledger
+- repo-wide AI instructions in `.github/copilot-instructions.md` and `CLAUDE.md`
+- role definitions in `.github/agents/`
+- artifact templates in `templates/`
+- an audit trail in `docs/run-ledger.md`
 
-Create `docs/run-ledger.md` on your first pipeline run. Each run appends a new entry using the `templates/run-ledger-entry.md` format. The ledger is your audit trail — it tracks what was built, whether it passed verification, and how failures were classified.
-
-## Principles (from the Manifesto)
-
-This framework is grounded in eight postulates developed through structured research:
-
-1. **Tool-grounded execution** — prefer tool actions over narrative
-2. **Artifact-centered orchestration** — coordinate through files, not chat
-3. **Verification before trust** — model confidence ≠ correctness
-4. **Explicit role boundaries** — each agent has one job
-5. **Externalize memory** — persist state in files, not context windows
-6. **Classify failures by layer** — model vs orchestration vs specification
-7. **Optimize for trustworthy attention** — minimize noise, maximize signal
-8. **Evidence-weighted promotion** — earn trust through auditable evidence
-
-Full details: see `FRAMEWORK.md` and the source manifesto.
+If you want the background on the framework itself, see `FRAMEWORK.md` and `COMPANION.md`. For this repository, though, the primary focus is the Dog Viewer application described above.
 
