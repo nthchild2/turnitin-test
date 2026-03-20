@@ -1,7 +1,6 @@
 # Agentic Software Development Framework
 
-This document applies the domain-agnostic manifesto postulates to software engineering.
-It defines a pipeline, agent roles, tools, and a run ledger format.
+This document defines a pipeline, agent roles, tools, and a run ledger format.
 
 The goal is predictable quality — not perfection on every run, but consistently good outcomes
 that are verifiable and auditable. This is the opposite of "vibe coding" where outcomes
@@ -33,10 +32,6 @@ A spec artifact contains:
 
 The spec does not prescribe implementation. It defines the target.
 
-Postulate grounding:
-- P2 (artifact-centered): the spec is a durable file, not a chat message.
-- P7 (trustworthy attention): a tight spec focuses all downstream work.
-
 ### 2. Research
 
 Investigate the existing codebase, dependencies, conventions, and constraints
@@ -56,10 +51,6 @@ A research brief contains:
 
 The research phase reads; it does not write production code.
 
-Postulate grounding:
-- P1 (tool-grounded): the researcher uses tools to read files, search, and navigate — not guess.
-- P5 (externalize memory): findings are written down, not held in model context.
-
 ### 3. Plan
 
 Break the spec into ordered, concrete implementation steps.
@@ -76,11 +67,6 @@ A plan artifact contains:
 
 The plan does not contain code. It describes what to change and in what order.
 
-Postulate grounding:
-- P2 (artifact-centered): the plan is a reviewable file.
-- P4 (explicit boundaries): each step is a bounded unit of work.
-- P7 (trustworthy attention): the plan keeps the executor focused on one step at a time.
-
 ### 4. Execution
 
 Implement the plan step by step.
@@ -94,10 +80,6 @@ Execution rules:
 - Follow the plan in order.
 - If a step is blocked or unclear, stop and surface the issue — do not improvise.
 - Produce working, minimal changes per step.
-
-Postulate grounding:
-- P1 (tool-grounded): the executor writes code through tools, not narrative.
-- P4 (explicit boundaries): the executor stays within the plan's scope.
 
 ### 5. Verification
 
@@ -118,11 +100,6 @@ Default verification checklist (tune per project):
 - Does the project still build / pass existing tests?
 - Were any files changed that were out of scope?
 - Are there obvious regressions?
-
-Postulate grounding:
-- P3 (verification before trust): output is untrusted until checked.
-- P5 (externalize audit): the verification result and decisions are recorded.
-- P6 (classify failures): if verification fails, classify why.
 
 ## Agent Roles
 
@@ -155,35 +132,16 @@ It manages flow, not judgment.
 If verification fails, the pipeline loops back to the appropriate phase
 (usually Planner or Executor) with the failure report as new input.
 
-## Tools to Build
-
-Each tool maps to an agent role and a postulate.
-Tools are prompts, agents, or small utilities — not a platform.
-
-| Tool | Purpose | Maps to role | Maps to postulate |
-| --- | --- | --- | --- |
-| Spec normalizer | Prompt/agent that turns a human request into a structured spec artifact | Specifier | P2, P7 |
-| Codebase researcher | Agent that reads files, searches, and produces a research brief | Researcher | P1, P5 |
-| Plan generator | Prompt/agent that takes spec + research and outputs an ordered plan | Planner | P2, P4, P7 |
-| Step executor | Agent that follows plan steps and writes code through tools | Executor | P1, P4 |
-| Verification harness | Configurable checker that runs heuristic checks against the spec | Verifier | P3, P6 |
-| Run ledger writer | Utility that records the full pipeline run as a structured log | All | P5 |
-
 ### Why these tools and not others
 
-- Each tool exists because a postulate says it should.
 - There is no "creativity agent" or "brainstorming agent" — those are human activities.
 - There is no "risk checker" — humans own risk decisions before the pipeline runs.
 - There is no "chat agent" — the pipeline is artifact-to-artifact, not conversational.
-- The tools are composable. You can skip research for a trivial fix.
-  You can run verification with different check profiles.
-  The pipeline adapts; the structure stays.
 
 ## Run Ledger Format
 
 The run ledger is the audit trail for every pipeline run.
 It must be readable by humans and parseable by agents.
-This follows P5 (externalize memory) and enables learning across runs.
 
 Each run produces one ledger entry. Format:
 
@@ -231,56 +189,10 @@ Each run produces one ledger entry. Format:
 - Cost/performance fields are optional — they exist for tuning, not gatekeeping.
 - The format is flat and simple. No nested structures, no schemas to maintain.
 
-## The Methodology (How to Use These Tools)
+## The Methodology
 
 ### Before a run
 
 1. Human writes or describes what they want.
 2. Human decides the quality bar for this run (what verification means).
 3. Human decides if research is needed (skip for trivial changes).
-
-### During a run
-
-1. **Spec**: Specifier normalizes the request into a spec artifact. Human reviews and approves.
-2. **Research** (if needed): Researcher investigates and produces a research brief.
-3. **Plan**: Planner produces an ordered plan from spec + research. Human can review.
-4. **Execution**: Executor implements the plan step by step.
-5. **Verification**: Verifier checks output against spec and writes the run ledger entry.
-
-### After a run
-
-- If verification passes: done. Ledger entry recorded.
-- If verification fails: classify the failure (P6), loop back to the right phase.
-- Human reviews the run ledger periodically to spot patterns
-  (e.g., "specs keep being too vague" or "executor keeps going out of scope").
-
-### What makes this different from vibe coding
-
-| Vibe coding | This methodology |
-| --- | --- |
-| No spec — just "make it work" | Explicit spec with acceptance criteria |
-| No research — agent guesses at codebase | Research phase reads before writing |
-| No plan — agent does everything at once | Ordered plan with bounded steps |
-| No verification — "looks good to me" | Heuristic checks against the spec |
-| No record — context dies with the chat | Run ledger preserves decisions and outcomes |
-| Random quality — sometimes great, sometimes broken | Predictable quality through structure and gates |
-| No learning — same mistakes repeated | Run ledger enables pattern recognition across runs |
-
-## What This Document Does Not Cover (Yet)
-
-- Specific prompt designs for each agent role (next iteration).
-- Language-specific verification profiles (tunable per project).
-- Multi-project orchestration (out of scope for now).
-- Cost optimization strategies (premature before real-world runs).
-
-## Feedback Loop
-
-This document is the first domain-specific output of the manifesto.
-After applying it to a real project, bring back:
-- Which phases worked and which felt like overhead.
-- Which agent roles were useful and which were redundant.
-- Whether the run ledger format was actually usable.
-- New questions or postulate revisions based on real outcomes.
-
-That feedback becomes input to the next manifesto cycle.
-
