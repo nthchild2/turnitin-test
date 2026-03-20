@@ -1,4 +1,16 @@
-function FavoritesPanel({ favorites, onSelectFavorite, onRemoveFavorite }) {
+import type { Dog } from '../types/dog';
+
+interface FavoritesPanelProps {
+  favorites: Dog[];
+  onSelectFavorite?: (dog: Dog) => void;
+  onRemoveFavorite?: (dogId: string) => void;
+}
+
+function FavoritesPanel({
+  favorites,
+  onSelectFavorite,
+  onRemoveFavorite,
+}: FavoritesPanelProps) {
   return (
     <aside className="favorites-panel" aria-labelledby="favorites-heading">
       <div className="section-heading">

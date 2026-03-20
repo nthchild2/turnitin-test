@@ -1,4 +1,10 @@
-function MainDogDisplay({ dog }) {
+import type { Dog } from '../types/dog';
+
+interface MainDogDisplayProps {
+  dog: Dog | null;
+}
+
+function MainDogDisplay({ dog }: MainDogDisplayProps) {
   if (!dog) {
     return (
       <section className="main-dog-card" aria-live="polite">

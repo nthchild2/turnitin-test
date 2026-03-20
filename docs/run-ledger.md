@@ -68,3 +68,66 @@ Implemented a Vite + React Dog Viewer app with Dog API fetching, breed-label nor
 - `docs/2026-03-19-dog-viewer-research-brief.md` — added research brief artifact.
 - `docs/2026-03-19-dog-viewer-plan.md` — added execution plan artifact.
 
+
+## Run: Dog Viewer TypeScript Migration and Test Coverage
+
+- ID: 2026-03-19-ts-migration
+- Date: 2026-03-19
+- Type: refactor
+- Status: pass
+
+### Spec Summary
+Migrate the existing Dog Viewer React application from JavaScript to TypeScript with explicit, meaningful types across app logic and UI components, avoiding broad `any` usage. Add a Jest-based test setup and introduce component-level tests so core user-facing behavior is validated through automated testing, while preserving existing functionality and user experience.
+
+### Acceptance Criteria
+- [x] The app codebase is converted from JavaScript source files to TypeScript/TSX where applicable, and the project builds successfully with TypeScript enabled.
+- [x] Core domain data used by the app (for example, dog-related API and normalized data structures) is represented with explicit TypeScript types/interfaces.
+- [x] No broad `any` is introduced in application source files except where explicitly justified and documented as an unavoidable boundary.
+- [x] A Jest-based test command runs successfully in CI/local workflow and exits with passing status.
+- [x] Component tests exist for key UI components and verify observable behavior (rendering, user interaction, and expected state/output changes).
+- [x] Existing user-visible behavior of the Dog Viewer app remains functionally equivalent after migration (no intentional feature changes).
+
+### Verification Checks
+- `npm run typecheck` completes successfully (`tsc --noEmit`).
+- `npm run test -- --runInBand` completes successfully (4 suites, 9 tests passed).
+- `npm run build` completes successfully (`tsc --noEmit` + `vite build`).
+- `src/**/*.js` and `src/**/*.jsx` search returns no results, confirming source migration.
+- `grep` for `\bany\b` in `src/**/*.{ts,tsx}` returns no results.
+- `git status --short` and `git diff --name-status` reviewed for scope and regressions; changes align with migration/tooling/tests/docs scope.
+
+### Result
+- Outcome: pass
+- Failure classification (if applicable): N/A
+- Notes: All acceptance criteria were verifiably met based on build/typecheck/test results and file-level inspection. Behavior equivalence is supported by passing integration/component tests for key flows and no intentional feature additions observed in changed files.
+
+### Files Changed
+- `README.md` — updated commands/docs for TypeScript and Jest workflows.
+- `docs/2026-03-19-ts-migration-plan.md` — migration plan artifact updates.
+- `docs/2026-03-19-ts-migration-research-brief.md` — research brief artifact updates.
+- `docs/2026-03-19-ts-migration-spec.md` — migration spec artifact.
+- `index.html` — entry script updated to `src/main.tsx`.
+- `jest.config.cjs` — Jest configuration for TypeScript tests.
+- `package-lock.json` — dependency lockfile updates for TypeScript/Jest tooling.
+- `package.json` — scripts and dev dependencies for typecheck/test/build.
+- `src/App.jsx` — removed legacy JavaScript source.
+- `src/App.test.tsx` — added app behavior tests with API mocking.
+- `src/App.tsx` — migrated app logic to TypeScript.
+- `src/components/FavoritesPanel.jsx` — removed legacy JavaScript component.
+- `src/components/FavoritesPanel.test.tsx` — added favorites panel behavior tests.
+- `src/components/FavoritesPanel.tsx` — migrated favorites panel to TypeScript.
+- `src/components/MainDogDisplay.jsx` — removed legacy JavaScript component.
+- `src/components/MainDogDisplay.test.tsx` — added main display render tests.
+- `src/components/MainDogDisplay.tsx` — migrated main display to TypeScript.
+- `src/components/ThumbnailGallery.jsx` — removed legacy JavaScript component.
+- `src/components/ThumbnailGallery.test.tsx` — added thumbnail gallery render/interaction tests.
+- `src/components/ThumbnailGallery.tsx` — migrated thumbnail gallery to TypeScript.
+- `src/lib/dogApi.js` — removed legacy JavaScript API utility.
+- `src/lib/dogApi.ts` — migrated API utility to TypeScript with typed responses.
+- `src/lib/normalizeDog.js` — removed legacy JavaScript normalization utility.
+- `src/lib/normalizeDog.ts` — migrated normalization utility to TypeScript.
+- `src/main.jsx` — removed legacy JavaScript entry point.
+- `src/main.tsx` — migrated app bootstrap to TypeScript.
+- `src/test/setupTests.ts` — added Jest Testing Library setup.
+- `src/types/dog.ts` — added shared domain/API type definitions.
+- `tsconfig.json` — TypeScript project configuration (strict mode).
+- `tsconfig.node.json` — TypeScript Node/Vite config typing.

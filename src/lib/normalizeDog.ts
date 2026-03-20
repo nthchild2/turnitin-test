@@ -1,4 +1,6 @@
-function formatBreedSegment(segment) {
+import type { Dog } from '../types/dog';
+
+function formatBreedSegment(segment: string): string {
   return segment
     .split('-')
     .filter(Boolean)
@@ -7,7 +9,7 @@ function formatBreedSegment(segment) {
     .join(' ');
 }
 
-export function deriveBreedLabel(imageUrl) {
+export function deriveBreedLabel(imageUrl: string): string {
   try {
     const { pathname } = new URL(imageUrl);
     const match = pathname.match(/\/breeds\/([^/]+)\//);
@@ -22,7 +24,7 @@ export function deriveBreedLabel(imageUrl) {
   }
 }
 
-export function normalizeDog(imageUrl, idSuffix = '') {
+export function normalizeDog(imageUrl: string, idSuffix = ''): Dog {
   return {
     id: idSuffix ? `dog-${idSuffix}` : imageUrl,
     imageUrl,

@@ -3,11 +3,12 @@ import FavoritesPanel from './components/FavoritesPanel';
 import MainDogDisplay from './components/MainDogDisplay';
 import ThumbnailGallery from './components/ThumbnailGallery';
 import { fetchRandomDog, fetchRandomDogs } from './lib/dogApi';
+import type { Dog } from './types/dog';
 
 function App() {
-  const [mainDog, setMainDog] = useState(null);
-  const [galleryDogs, setGalleryDogs] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+  const [mainDog, setMainDog] = useState<Dog | null>(null);
+  const [galleryDogs, setGalleryDogs] = useState<Dog[]>([]);
+  const [favorites, setFavorites] = useState<Dog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -25,7 +26,7 @@ function App() {
     });
   }
 
-  function handleRemoveFavorite(dogId) {
+  function handleRemoveFavorite(dogId: string) {
     setFavorites((currentFavorites) =>
       currentFavorites.filter((favorite) => favorite.id !== dogId),
     );
@@ -119,5 +120,4 @@ function App() {
 }
 
 export default App;
-
 

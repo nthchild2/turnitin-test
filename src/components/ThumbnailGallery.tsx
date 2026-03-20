@@ -1,4 +1,11 @@
-function ThumbnailGallery({ dogs, onSelectDog }) {
+import type { Dog } from '../types/dog';
+
+interface ThumbnailGalleryProps {
+  dogs: Dog[];
+  onSelectDog?: (dog: Dog) => void;
+}
+
+function ThumbnailGallery({ dogs, onSelectDog }: ThumbnailGalleryProps) {
   return (
     <section className="gallery-card" aria-labelledby="gallery-heading">
       <div className="section-heading">

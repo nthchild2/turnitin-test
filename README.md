@@ -46,6 +46,18 @@ To create a production build:
 npm run build
 ```
 
+To run strict TypeScript checks:
+
+```bash
+npm run typecheck
+```
+
+To run the Jest + React Testing Library suite:
+
+```bash
+npm run test
+```
+
 ## Framework Context
 
 This project was forked from a template repository that includes the Agentic Software Development Framework. That framework is still present here as supporting project infrastructure and includes:
