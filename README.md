@@ -29,9 +29,22 @@ This repository is intended for a timeboxed Dog Viewer exercise. The app should 
 - **API:** [Dog API](https://dog.ceo/dog-api/documentation)
 - **Primary goal:** keep the app easy for reviewers to run and easy to extend in later interview rounds
 
-## Repository Status
+## Run Locally
 
-This repository currently contains project documentation and workflow scaffolding. The React application implementation has not been added yet, so this README describes the intended product and assignment scope without claiming completed app behavior or setup commands that do not yet exist.
+Install dependencies and start the Vite development server:
+
+```bash
+npm install
+npm run dev
+```
+
+The development server will print a local URL such as `http://localhost:5173`.
+
+To create a production build:
+
+```bash
+npm run build
+```
 
 ## Framework Context
 
